@@ -1,12 +1,15 @@
-from config import DEVICE_ID
+from boot_config import DEVICE_ID
 from pmon import PlantMonitor
+from utils import debug
 
 pm = PlantMonitor()
 
 def read_environment():
-    return {
+    reading = {
         "deviceId": DEVICE_ID,
         "moisture": pm.get_wetness(),
         "temperature": pm.get_temp(),
         "humidity": pm.get_humidity()
     }
+    debug(f"Sensor reading: {reading}")
+    return reading

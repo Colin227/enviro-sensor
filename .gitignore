@@ -1,1 +1,2 @@
-config.py
+runtime_config.*
+boot_config.*

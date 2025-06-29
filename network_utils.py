@@ -1,6 +1,6 @@
 import network
 import time
-from config import SSID, PASSWORD
+from boot_config import SSID, PASSWORD
 
 def connect_wifi(ssid=SSID, password=PASSWORD):
     wlan = network.WLAN(network.STA_IF)
