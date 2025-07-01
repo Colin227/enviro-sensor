@@ -1,8 +1,6 @@
 import urequests
 import ujson
 from boot_config import CONFIG_URL
-import _thread
-from time import sleep
 from utils import debug, set_debug
 
 RUNTIME_CONFIG_PATH = "runtime_config.json"
@@ -49,18 +47,6 @@ def load_runtime_config(device_id):
     except:
         print("No valid config found")
         return {}
-    
-def start_config_watcher(device_id, interval_sec=300):
-    def watcher():
-        global _config_cache
-        while True:
-            
-            remote_config = get_remote_config(device_id)
-            if remote_config and remote_config != _config_cache:
-                
-                apply_new_config(remote_config)
-            sleep(interval_sec)
-    _thread.start_new_thread(watcher, ())
 
 def get_runtime_config():
     global _config_cache
