@@ -1,6 +1,7 @@
 from boot_config import DEVICE_ID
 from pmon import PlantMonitor
 from utils import debug
+import gc
 
 pm = PlantMonitor()
 
@@ -12,4 +13,5 @@ def read_environment():
         "humidity": pm.get_humidity()
     }
     debug(f"Sensor reading: {reading}")
+    gc.collect()
     return reading

@@ -4,6 +4,7 @@ import gc
 import network_utils
 from boot_config import DEVICE_ID, DEVICE_URL
 from device import get_runtime_config
+import network
 
 HEALTH_ENDPOINT = f"{DEVICE_URL}/{DEVICE_ID}/health"
 config = get_runtime_config()
@@ -27,11 +28,20 @@ def get_signal_strength():
             return None
     return None
 
+def get_ip():
+    wlan = network.WLAN(network.STA_IF)
+    return wlan.ifconfig()[0] if wlan.isconnected() else None
+
+def get_free_memory():
+    return gc.mem_free()
+
 def send_health():
     payload = {
         "firmwareVersion": get_firmware_version(),
         "batteryLevel": get_battery_level(),
         "signalStrength": get_signal_strength(),
+        # "ip": get_ip(),
+        "freeMemory": get_free_memory()
     }
     headers = {"Content-Type": "application/json"}
     try:
